@@ -1,0 +1,14 @@
+{
+  "name": "ingsoftii",
+  "version": "1.0.0",
+  "description": "Software Engineering Project II ",
+  "main": "index.js",
+  "scripts": {
+    "start": "browser-sync start --server --files 'index.html' 'styless.css' 'index.js'"
+  },
+  "author": "Alexis Agudelo",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.27.5"
+  }
+}
