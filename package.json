@@ -4,11 +4,14 @@
   "description": "Software Engineering Project II ",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --server --files 'index.html' 'styless.css' 'index.js'"
+    "start": "browser-sync start --server --files 'index.html' 'styless.css' 'index.js'",
+    "server": "nodemon ./api"
   },
   "author": "Alexis Agudelo",
   "license": "ISC",
   "dependencies": {
-    "browser-sync": "^2.27.5"
+    "browser-sync": "^2.27.5",
+    "express": "^4.17.1",
+    "pg": "^8.7.1"
   }
 }
