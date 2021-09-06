@@ -1,6 +1,33 @@
 const PostgresService = require('../services/postgres.service');
 const _pg = new PostgresService()
 
+const crearReto = async (usuario) => {
+    const sql = 'INSERT INTO public.retos (id, id_usuario, nombre_usuario, tipo_reto, dependencia, problema, antecedentes, interesados, impacto_esperado) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);'
+    const datos = [reto.id, reto.id_usuario, reto.nombre_usuario, reto.tipo_reto, reto.dependencia, reto.problema, reto.antecedentes, reto.interesados, reto.impacto_esperado]
+    return await _pg.ejecutarQuery(sql, datos)
+}
 
+const consultarRetos = async (id) => {
+    let sql = 'SELECT id, id_usuario, nombre_usuario, tipo_reto, dependencia, problema, antecedentes, interesados, impacto_esperado  FROM retos'
+    if (id) {
+        sql += ` WHERE id = $1`
+        const datos = [id]
+        return await _pg.ejecutarQuery(sql, datos)
+    } else {
+        return await _pg.ejecutarQuery(sql)
+    }
+}
 
-module.exports = { }
+const eliminarReto= async (id) => {
+    const sql = 'DELETE FROM public.retos WHERE id=$1';
+    const datos = [id]
+    return await _pg.ejecutarQuery(sql, datos)
+}
+
+const modificarReto = async (usuario) => {
+    const sql = `UPDATE public.retos SET id_usuario=$1, nombre_usuario=$2, tipo_reto=$3, dependencia=$4, problema=$5, antecedentes=$6, interesados=$7, impacto_esperado=$8  WHERE id=$9;`
+    const datos = [reto.id_usuario, reto.nombre_usuario, reto.tipo_reto, reto.dependencia, reto.problema, reto.antecedentes, reto.interesados, reto.impacto_esperado,reto.id]
+    return await _pg.ejecutarQuery(sql, datos)
+}
+
+module.exports = { crearReto, consultarRetos, eliminarReto, modificarReto}
