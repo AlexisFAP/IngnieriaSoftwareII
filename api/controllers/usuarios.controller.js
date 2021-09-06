@@ -1,9 +1,9 @@
 const PostgresService = require('../services/postgres.service');
 const _pg = new PostgresService()
 
-const crearUsuario = async (usuario) => {
-    const sql = 'INSERT INTO public.usuarios (id, nombre_completo, cargo, contraseña,usuario, telefono, correo) VALUES($1, $2, $3, md5($4), $5, $6);'
-    const datos = [usuario.id, usuario.nombre_completo, usuario.cargo, usuario.contraseña, usuario.usuario, usuario.telefono, usuario.correo]
+const crearUsuario = async (user) => {
+    const sql = 'INSERT INTO public.usuarios (id, nombre_completo, cargo, contraseña,usuario, telefono, correo) VALUES($1, $2, $3, $4, $5, $6, $7);'
+    const datos = [user.id, user.nombre_completo, user.cargo, user.contraseña, user.usuario, user.telefono, user.correo]
     return await _pg.ejecutarQuery(sql, datos)
 }
 
