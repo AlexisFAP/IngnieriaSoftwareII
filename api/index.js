@@ -4,8 +4,11 @@ const app = express()
 
 app.use(express.json())
 
-const router_usuario =  require('./routers/usuarios.router');
-app.use(router_usuario)
+const router_usuario_public =  require('./routers/usuarios-public.router');
+app.use(router_usuario_public)
+
+const router_usuario_private =  require('./routers/usuarios-private.router');
+app.use(router_usuario_private)
 
 const router_tiporeto =  require('./routers/tiporeto.router');
 app.use(router_tiporeto)
