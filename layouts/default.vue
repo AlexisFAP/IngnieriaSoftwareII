@@ -125,3 +125,24 @@ export default {
   }
 }
 </script>
+<style scoped>
+.theme--dark.v-application {
+  background:#fcfcfc;
+}
+.theme--dark.v-app-bar.v-toolbar.v-sheet {
+  background-color: #03045E;
+}
+.theme--dark.v-footer{
+  background: #03045E;
+}
+
+.theme--light.v-application {
+  background:#fcfcfc;
+}
+.theme--light.v-app-bar.v-toolbar.v-sheet {
+  background-color: #C9CAD9;
+}
+.theme--light.v-footer{
+  background: #C9CAD9;
+}
+</style>

@@ -27,3 +27,20 @@
     </v-card>
   </div>
 </template>
+<style scoped>
+.theme--dark.v-card {
+  background-color: #0077B6;
+}
+.theme--dark.success {
+  background-color: #90E0EF !important;
+  border-color: #90E0EF !important;
+}
+
+.theme--light.v-card {
+  background-color: #c5c5c5;
+}
+.theme--light.success {
+  background-color: #47e30a !important;
+  border-color: #47e30a !important;
+}
+</style>
