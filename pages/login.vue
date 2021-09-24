@@ -6,7 +6,7 @@
         <v-card-text>
           <v-text-field
             label="Identificación"
-            v-model="id"
+            v-mode  l="id"
             :rules="requiredRule"
           ></v-text-field>
           <v-text-field
@@ -42,5 +42,17 @@
 .theme--light.success {
   background-color: #47e30a !important;
   border-color: #47e30a !important;
+}
+
+.theme--light.v-card {
+  background-color: #b60000;
+  color: #fff;
+}
+.theme--light.success {
+  background-color: #ef9090 !important;
+  border-color: #ef9090 !important;
+}
+.theme--light.v-label {
+  color: rgba(255,255,255,1.0)
 }
 </style>

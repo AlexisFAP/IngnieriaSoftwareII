@@ -103,11 +103,6 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        },
-        {
-          icon: 'mdi-chart-bubble',
           title: 'Log In',
           to: '/login'
         },
@@ -135,6 +130,11 @@ export default {
 .theme--dark.v-footer{
   background: #03045E;
 }
+.theme--dark.v-navigation-drawer{
+  background: #0077B6;
+}
+
+
 
 .theme--light.v-application {
   background:#fcfcfc;
@@ -144,5 +144,25 @@ export default {
 }
 .theme--light.v-footer{
   background: #C9CAD9;
+}
+
+.theme--light.v-application {
+  background:#fcfcfc;
+}
+.theme--light.v-app-bar.v-toolbar.v-sheet {
+  background-color: #931F1D;
+  color: #fff;
+}
+.theme--light.v-footer{
+  background: #931F1D;
+  color: #fff;
+}
+.theme--light.v-navigation-drawer{
+  background: #bb4343;
+  color: #fff;
+}
+
+.theme--light.v-label{
+  color: rgba(255,255,255,1.0)
 }
 </style>
