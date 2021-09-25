@@ -30,12 +30,14 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
       </v-btn>
-
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      {{ nombre_usuario }}
+      <div>
+        <v-btn id="singup" @click="singUp()">Registrar</v-btn>
+        <v-btn id="login" @click="logIn()">Iniciar Sesión</v-btn>
+      </div>
+      
     </v-app-bar>
-
     <v-main>
       <v-container>
         <Nuxt />
@@ -47,7 +49,6 @@
     </v-footer>
   </v-app>
 </template>
-
 <script>
 export default {
   data () {
@@ -58,28 +59,55 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Home',
+          title: 'Inicio',
           to: '/'
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Log In',
-          to: '/login'
+          title: 'Qué es TRL',
+          to: '/trl'
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Sing Up',
-          to: '/singup'
+          title: 'Qué es Innovación abierta',
+          to: '/innovacion'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Qué es un Reto',
+          to: '/reto'
         }
       ],
       miniVariant: false,
       right: true,
-      title: 'Innovación Abierta'
+      title: 'Ideagora - Innovación Abierta'
+    }
+  },
+  methods: {
+    singUp(){
+      this.$router.push('/singup');
+    },
+    logIn(){
+      this.$router.push('/login');
     }
   }
 }
 </script>
+
 <style scoped>
+#singup{
+  background-color:#023E8A;
+  border-color: #023E8A;
+  margin-right: 3px;
+}
+#login{
+  background-color: #48CAE4;
+  border-color: #48CAE4;
+  margin-left: 3px;
+}
+h1 {
+  font-size: 20px;
+}
 .theme--dark.v-application {
   background:#fcfcfc;
 }

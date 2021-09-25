@@ -45,26 +45,4 @@
   background-color: #90E0EF !important;
   border-color: #90E0EF !important;
 }
-
-.theme--light.v-card {
-  background-color: #c5c5c5;
-}
-.theme--light.success {
-  background-color: #47e30a !important;
-  border-color: #47e30a !important;
-}
-
-.theme--light.v-card {
-  background-color: #b60000;
-}
-.theme--light.success {
-  background-color: #DA4167 !important;
-  border-color: #DA4167 !important;
-}
-.theme--light.v-sheet {
-  color: #FFFFFF;
-}
-.theme--light.v-input {
-    color: #FFFFFF;
-}
 </style>
