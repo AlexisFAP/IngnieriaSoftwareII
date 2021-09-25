@@ -1,8 +1,10 @@
 const express = require('express')
+const cors = require('cors')
 
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 const router_usuario_public =  require('./routers/usuarios-public.router');
 app.use(router_usuario_public)
@@ -25,7 +27,7 @@ app.use(router_documento)
 const router_avance =  require('./routers/avances.router');
 app.use(router_avance)
 
-const port = 3000
+const port = 3001
 
 app.listen(port, () => {
     console.log(`API: http://localhost:${port}`)
