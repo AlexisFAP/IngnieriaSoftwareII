@@ -34,6 +34,7 @@
       <v-toolbar-title v-text="title" />
       <v-spacer />
       {{ nombre_usuario }}
+      <v-btn id="reto" @click="createReto()">Crear Reto</v-btn>
     </v-app-bar>
 
     <v-main>
@@ -49,6 +50,8 @@
 </template>
 
 <script>
+import config from "../assets/js/config";
+
 export default {
   data () {
     return {
@@ -58,28 +61,66 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Home',
+          title: 'Inicio',
           to: '/'
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Log In',
-          to: '/login'
+          title: 'Qué es TRL',
+          to: '/trl'
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Sing Up',
-          to: '/singup'
+          title: 'Qué es Innovación abierta',
+          to: '/innovacion'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Qué es un Reto',
+          to: '/reto'
         }
       ],
       miniVariant: false,
       right: true,
+      nombre_usuario: '', 
       title: 'Innovación Abierta'
+    };
+  },
+  beforeMount() {
+    this.cargarPagina();
+  },
+  methods: {
+    async cargarPagina() {
+      this.nombre_usuario = localStorage.getItem("nombre_usuario");
+      let token = localStorage.getItem("token");
+      if (token === "null" || token == null || token == undefined) {
+        //this.$router.push("/login");
+      } else {
+        await this.validarToken(token);
+      }
+    },
+
+    async validarToken(token) {
+      try {
+        let url = config.URL_API + "/validar-token/" + token;
+        let respuesta = await this.$axios.get(url);
+        console.log(respuesta);
+      } catch (error) {
+        //this.$router.push("/login");
+      }
+    },
+    createReto() {
+      this.$router.push('/createreto');
     }
-  }
-}
+  },
+};
 </script>
 <style scoped>
+#reto{
+  background-color: #48CAE4;
+  border-color: #48CAE4;
+  margin-left: 7.5px;
+}
 .theme--dark.v-application {
   background:#fcfcfc;
 }
@@ -90,6 +131,6 @@ export default {
   background: #03045E;
 }
 .theme--dark.v-navigation-drawer{
-  background: #0077B6;
+  background: #023E8A;
 }
 </style>

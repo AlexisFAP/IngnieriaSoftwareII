@@ -118,6 +118,6 @@ h1 {
   background: #03045E;
 }
 .theme--dark.v-navigation-drawer{
-  background: #0077B6;
+  background: #023E8A;
 }
 </style>
