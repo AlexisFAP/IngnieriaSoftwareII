@@ -2,7 +2,7 @@ const PostgresService = require('../services/postgres.service');
 const _pg = new PostgresService()
 
 const crearTipoReto= async (tipo_reto) => {
-    const sql = 'INSERT INTO public.tipo_reto (id_tipo_reto, nombre, descripcion) VALUES($1, $2, $3);'
+    const sql = 'INSERT INTO public.tipo_reto (id, nombre, descripcion) VALUES($1, $2, $3);'
     const datos = [tipo_reto.id, tipo_reto.nombre, tipo_reto.descripcion]
     return await _pg.ejecutarQuery(sql, datos)
 }
