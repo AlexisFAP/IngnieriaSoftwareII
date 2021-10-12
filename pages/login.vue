@@ -5,11 +5,6 @@
         <v-card-title primary-title> Ingresar </v-card-title>
         <v-card-text>
           <v-text-field
-            label="Id" color="white"
-            v-model="id"
-            :rules="requiredRule"
-          ></v-text-field>
-          <v-text-field
             type="password"
             label="Contraseña" color="white"
             v-model="clave"

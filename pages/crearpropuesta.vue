@@ -5,15 +5,10 @@
         <v-card-title primary-title> Propuesta </v-card-title>
         <v-card-text>
           <v-text-field
-            label="ID" color="white"
-            v-model="id"
-            :rules="requiredRule"
-          ></v-text-field>
-          <v-text-field
             label="Descripción" color="white"
             v-model="descripcion"
             :rules="requiredRule"
-          ></v-text-field>
+          ></v-text-field>s
         </v-card-text>
         <v-card-actions>
           <v-btn color="success" @click="createPropuesta()">Postular Propuesta</v-btn>

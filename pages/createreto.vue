@@ -5,11 +5,6 @@
         <v-card-title primary-title> Crear Reto </v-card-title>
         <v-card-text>
           <v-text-field
-            label="ID" color="white"
-            v-model="id"
-            :rules="requiredRule"
-          ></v-text-field>
-          <v-text-field
             label="Dependencia" color="white"
             v-model="dependencia"
             :rules="requiredRule"

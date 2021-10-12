@@ -5,11 +5,6 @@
         <v-card-title primary-title> Registrarse </v-card-title>
         <v-card-text>
           <v-text-field
-            label="ID" color="white"
-            v-model="id"
-            :rules="requiredRule"
-          ></v-text-field>
-          <v-text-field
             label="Nombre Completo" color="white"
             v-model="name"
             :rules="requiredRule"
