@@ -36,8 +36,13 @@ app.use(router_avance)
 const router_upload = require('./services/upload')
 app.use(router_upload)
 
-const port = 3001
+/*const port = 3001
 
 app.listen(port, () => {
     console.log(`API: http://localhost:${port}`)
-  })
+  })]*/
+
+const port = process.env.PORT || 8000;
+app.listen(port, () => {
+  console.log(`listen on port:${port}`)
+})
