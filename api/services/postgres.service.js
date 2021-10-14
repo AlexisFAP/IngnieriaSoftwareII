@@ -15,6 +15,14 @@ class PostgresService {
             database: config.PGDATABASE,
             password: config.PGPASSWORD,
             port: config.PGPORT,
+            ssl: true,
+            dialect: 'postgres',
+            dialectOptions: {
+                "ssl": {"require":true }
+            },
+            ssl: {
+                rejectUnauthorized: false
+              }
         })
     }
 
