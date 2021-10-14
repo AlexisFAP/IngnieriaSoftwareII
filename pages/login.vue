@@ -5,6 +5,11 @@
         <v-card-title primary-title> Ingresar </v-card-title>
         <v-card-text>
           <v-text-field
+            label="Email" color="white"
+            v-model="email"
+            :rules="requiredRule"
+          ></v-text-field>
+          <v-text-field
             type="password"
             label="Contraseña" color="white"
             v-model="clave"
@@ -27,7 +32,7 @@ import config from "../assets/js/config";
 export default {
   data() {
     return{
-      id: null,
+      email: null,
       clave: null,
       requiredRule: [(v) => !!v || "El campo es obligatorio"],
       loading: false,
@@ -41,7 +46,7 @@ export default {
         }
         let url = config.URL_API + "/login";
         let payload = {};
-        payload.id = this.id;
+        payload.correo = this.email;
         payload.clave = this.clave;
         this.loading = true;
         let response = await this.$axios.post(url, payload);
@@ -73,7 +78,7 @@ export default {
           type: "error",
           icon: "error",
           title: "Oops...",
-          text: "Id y/o contraseña incorrectos",
+          text: "Correo y/o contraseña incorrectos",
         });
         console.log(error);
       } finally {

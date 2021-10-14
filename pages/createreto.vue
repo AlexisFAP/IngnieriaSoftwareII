@@ -14,11 +14,11 @@
             v-model="problema"
             :rules="requiredRule"
           ></v-text-field>
-          <v-text-field
+          <v-textarea
             label="Antecedentes" color="white"
             v-model="antecedentes"
             :rules="requiredRule"
-          ></v-text-field>
+          ></v-textarea>
           <v-text-field
             label="Interesados" color="white"
             v-model="interesados"
@@ -35,14 +35,19 @@
             v-model="impacto_esperado"
             :rules="requiredRule"
           ></v-textarea>
-          <input type="file" @change="onFileSelected" >
+          <v-file-input
+            v-model="file"
+            placeholder="Subir Archivo"
+            label="Subir Archivo"
+            prepend-icon="mdi-archive">
+          </v-file-input>
           <v-text-field
             label="Premio" color="white"
             v-model="premio"
             :rules="requiredRule"
           ></v-text-field>
           <v-row justify="center">
-            <v-date-picker color="blue light" header-color="primary" v-model="date"></v-date-picker>
+            <v-date-picker color="blue light" header-color="primary" v-model="fecha"></v-date-picker>
           </v-row>
         </v-card-text>
         <v-card-actions>
@@ -71,19 +76,28 @@ export default {
         requiredRule: [(v) => !!v || "El campo es obligatorio"],
         premio: null,
         fecha: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        file: null,
     };
   },
   methods: {
       onFileSelected(event) {
         this.portada = event.target.files[0]
       },
+      subirArchivo(){
+        let InstFormData = new FormData();
+        InstFormData.append('file' , this.file);
+        let url = config.URL_API + "/upload";
+        let response = this.$axios.post(url, InstFormData , {headers : {'content-type': 'multipart/form-data'}})
+        console.log(response);
+      },
       async createReto() {
-        console.log("fecha buena "+ this.date);
+        this.subirArchivo();
+        console.log("fecha buena "+ this.fecha);
         try{
             if (!this.$refs.formularioReto.validate()) {
                 return;
             }
-            let url = config.URL_API + "/retos";
+        let url = config.URL_API + "/retos";
         let payload = {};
         payload.id = parseInt(this.id);
         payload.id_usuario = localStorage.getItem("id");
@@ -107,7 +121,7 @@ export default {
         payload.portada = this.portada;
         payload.premio = this.premio;
         payload.fecha = this.fecha;
-        console.log("fecha buena 2"+ this.date);
+        console.log("fecha buena 2"+ this.fecha);
         let response = await this.$axios.post(url, payload)
         let data = response.data
         if (data.ok == false) {

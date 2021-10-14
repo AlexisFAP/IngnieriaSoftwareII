@@ -49,7 +49,6 @@ import config from "../assets/js/config";
 export default {
   data() {
     return{
-      id: null,
       name: null,
       cargo: null,
       user: null,
@@ -68,7 +67,6 @@ export default {
         }
         let url = config.URL_API + "/usuarios";
         let payload = {};
-        payload.id = parseInt(this.id);
         payload.nombre_completo = this.name;
         payload.cargo = 'Estudiante';
         payload.clave = this.clave;

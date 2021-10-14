@@ -5,10 +5,15 @@
         <v-card-title primary-title> Propuesta </v-card-title>
         <v-card-text>
           <v-text-field
+            label="Titulo" color="white"
+            v-model="titulo"
+            :rules="requiredRule"
+          ></v-text-field>
+          <v-textarea
             label="Descripción" color="white"
             v-model="descripcion"
             :rules="requiredRule"
-          ></v-text-field>s
+          ></v-textarea>
         </v-card-text>
         <v-card-actions>
           <v-btn color="success" @click="createPropuesta()">Postular Propuesta</v-btn>
@@ -22,8 +27,8 @@ import config from "../assets/js/config";
 export default {
   data() {
     return{
-        id: null,
         descripcion: null,
+        titulo: null,
         requiredRule: [(v) => !!v || "El campo es obligatorio"],
     };
   },
@@ -33,13 +38,13 @@ export default {
             if (!this.$refs.formularioPropuesta.validate()) {
                 return;
             }
-            let url = config.URL_API + "/postulaciones";
+        let url = config.URL_API + "/postulaciones";
         let payload = {};
-        payload.id = parseInt(this.id);
         payload.id_usuario = localStorage.getItem("id");
         payload.id_reto = localStorage.getItem("id_reto");;
         payload.descripcion = this.descripcion;
-        console.log(this.descripcion);
+        payload.titulo = this.titulo;
+        //console.log(this.descripcion);
         let response = await this.$axios.post(url, payload)
         let data = response.data
         if (data.ok == false) {

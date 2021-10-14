@@ -34,7 +34,8 @@
       <v-toolbar-title v-text="title" />
       <v-spacer />
       {{ nombre_usuario }}
-      <v-btn id="reto" @click="createReto()">Crear Reto</v-btn>
+      <v-btn id="sesion" @click="createReto()">Crear Reto</v-btn>
+      <v-btn id="reto" @click="cerrarSesion()">Cerrar Sesión</v-btn>
     </v-app-bar>
 
     <v-main>
@@ -111,11 +112,20 @@ export default {
     },
     createReto() {
       this.$router.push('/createreto');
+    },
+    cerrarSesion(){
+      localStorage.clear();
+      this.$router.push("/login");
     }
   },
 };
 </script>
 <style scoped>
+#sesion{
+  background-color:#023E8A;
+  border-color: #023E8A;
+  margin-left: 7.5px;
+}
 #reto{
   background-color: #48CAE4;
   border-color: #48CAE4;

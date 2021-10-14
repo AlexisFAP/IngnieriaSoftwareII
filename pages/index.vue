@@ -10,6 +10,8 @@
               <v-card id="container" width="250" 
               :key="item.id">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Imagen-logo-white-on-orange2.png" width="250px" alt="">
+                <!-- ><div>{{toBase64(item.portada.data)}}</div></!-->
+                <div>{{item.portada}}</div>
                 <v-card-title  primary-title> {{item.problema}}</v-card-title>
                 <v-card-text >
                   <div v-if="item.id_tipo_reto!=null"><b>Tipo Reto: </b> {{tipoReto(item.id_tipo_reto)}}</div>
@@ -94,7 +96,7 @@ export default {
         console.log(this.retos);
       },
       propuesta(index) {
-        localStorage.setItem('id_reto', parseInt(index+1))
+        localStorage.setItem('id_reto', index)
         //console.log("este es el index" +parseInt(index+1));
         this.$router.push('/crearpropuesta');
       },
@@ -108,6 +110,11 @@ export default {
         if(num == 3){
           return 'Tipo reto 3'
         }
+      },
+      toBase64(arr) {
+        return btoa(
+          arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
+      );
       }
     },
   }
@@ -130,7 +137,5 @@ export default {
   margin-bottom: 10px;
   background-color: #023E8A;
   border-color: #023E8A;
-}
-.theme--dark.v-card {
 }
 </style>
