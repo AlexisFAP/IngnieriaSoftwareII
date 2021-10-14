@@ -1,38 +1,29 @@
-#INNOCACIÓN ABIERTA
+# INNOCACIÓN ABIERTA
 
-##Usuarios
+## Usuarios
     -id
     -nombre completo
     -cargo
     -usuario
     -contraseña
 
-##Retos
+## Retos
     -id
     -id usuario
     -nombre
     -dependencia
-    -cargo
-    -telefono
-    -correo
     -problema
     -antecedentes
     -interesados
     -id tipo de reto
     -impacto esperado
 
-##Tipo de reto
+## Tipo de reto
     -id
     -nombre
     -descripcion
 
-##Documentos Reto
-    -id
-    -id reto
-    -id usuario
-    -informacion
-
-##Postulaciones
+## Postulaciones
     -id
     -nombre completo
     -dependencia
@@ -40,9 +31,10 @@
     -id reto
     -descripcion solucion
 
-##Avances
+## Avances
     -id
     -id usuario
     -id reto
     -descripcion
     -fecha
+    -id postulacion
