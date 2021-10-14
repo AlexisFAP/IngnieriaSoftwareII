@@ -2,13 +2,13 @@ const PostgresService = require('../services/postgres.service');
 const _pg = new PostgresService()
 
 const crearPostulacion = async (postulacion) => {
-    const sql = 'INSERT INTO public.postulaciones (id, id_usuario,id_reto, descripcion) VALUES($1, $2, $3, $4);'
-    const datos = [postulacion.id, postulacion.id_usuario,postulacion.id_reto, postulacion.descripcion]
+    const sql = 'INSERT INTO public.postulaciones (id_usuario,id_reto, descripcion, titulo) VALUES($1, $2, $3, $4);'
+    const datos = [postulacion.id_usuario,postulacion.id_reto, postulacion.descripcion,postulacion.titulo]
     return await _pg.ejecutarQuery(sql, datos)
 }
 
 const consultarPostulaciones = async (id) => {
-    let sql = 'SELECT id, id_usuario,id_reto, descripcion  FROM postulaciones'
+    let sql = 'SELECT * FROM postulaciones'
     if (id) {
         sql += ` WHERE id = $1`
         const datos = [id]
@@ -25,8 +25,8 @@ const eliminarPostulacion = async (id) => {
 }
 
 const modificarPostulacion = async (postulacion) => {
-    const sql = `UPDATE public.postulaciones SET id_usuario=$1, id_reto=$2, descripcion=$3 WHERE id=$4;`
-    const datos = [postulacion.id_usuario,postulacion.id_reto, postulacion.descipcion, postulacion.id]
+    const sql = `UPDATE public.postulaciones SET id_usuario=$1, id_reto=$2, descripcion=$3, titulo=$4 WHERE id=$5;`
+    const datos = [postulacion.id_usuario,postulacion.id_reto, postulacion.descipcion, postulacion.titulo,postulacion.id]
     return await _pg.ejecutarQuery(sql, datos)
 }
 

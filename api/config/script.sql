@@ -44,25 +44,13 @@ CREATE TABLE public.postulacines
     FOREIGN KEY (id_reto) REFERENCES retos(id_reto)
 )
 
-CREATE TABLE public.documentos
-(
-    id_documento varchar NOT NULL,
-    id_usuario varchar NOT NULL,
-    id_reto varchar NOT NULL,
-    informacion varchar NOT NULL,
-    PRIMARY KEY (id_documento),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
-    FOREIGN KEY (id_reto) REFERENCES retos(id_reto)
-)
-
-CREATE TABLE public.avances
-(
-    id_avance varchar NOT NULL,
-    id_usuario varchar NOT NULL,
-    id_reto varchar NOT NULL,
-    descripcion varchar NOT NULL,
-    fecha date NOT NULL,
-    PRIMARY KEY (id_avance),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
-    FOREIGN KEY (id_reto) REFERENCES retos(id_reto)
-)
+CREATE TABLE public.avances (
+	id serial NOT NULL,
+	id_usuario int NOT NULL,
+	id_reto int NOT NULL,
+	descripcion text NOT NULL,
+	fecha varchar NOT NULL,
+	PRIMARY KEY (id_usuario),
+	FOREIGN KEY (id_usuario) REFERENCES public.usuarios(id),
+    CONSTRAINT avances_fk_1 FOREIGN KEY (id_reto) REFERENCES public.retos(id)
+);
