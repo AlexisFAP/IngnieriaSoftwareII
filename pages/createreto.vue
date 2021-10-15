@@ -62,7 +62,6 @@ import config from "../assets/js/config";
 export default {
   data() {
     return{
-        id: null,
         id_usuario: null,
         dependencia: null,
         problema: null,
@@ -99,7 +98,6 @@ export default {
             }
         let url = config.URL_API + "/retos";
         let payload = {};
-        payload.id = parseInt(this.id);
         payload.id_usuario = localStorage.getItem("id");
         payload.dependencia = this.dependencia
         payload.problema = this.problema;
