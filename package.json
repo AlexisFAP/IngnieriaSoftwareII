@@ -4,7 +4,6 @@
   "description": "Software Engineering Project II ",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --server --files 'index.html' 'styless.css' 'index.js'",
     "server": "nodemon ./api"
   },
   "author": "Alexis Agudelo",
