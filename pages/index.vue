@@ -6,12 +6,14 @@
             </v-form>
             <v-row justify="space-around">
             <template v-for="(item) in retos">
-              
               <v-card id="container" width="250" 
               :key="item.id">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Imagen-logo-white-on-orange2.png" width="250px" alt="">
-                <!-- ><div>{{toBase64(item.portada.data)}}</div></!-->
-                <div>{{item.portada}}</div>
+                <v-img
+                  lazy-src="https://innovacioningsoftii.herokuapp.com/files/descarga.jpg"
+                   max-height="100"
+                  max-width="250"
+                  src="https://innovacioningsoftii.herokuapp.com/files/descarga.jpg"
+                ></v-img>
                 <v-card-title  primary-title> {{item.problema}}</v-card-title>
                 <v-card-text >
                   <div v-if="item.id_tipo_reto!=null"><b>Tipo Reto: </b> {{tipoReto(item.id_tipo_reto)}}</div>
@@ -24,7 +26,6 @@
                 </v-card-text>
                 <v-btn @click="propuesta(item.id)">Proponer Propuesta</v-btn>
               </v-card>
-              
             </template>
             </v-row>
             <!-- ></!-->
@@ -33,10 +34,12 @@
 </template>
 <script>
 import config from "../assets/js/config";
+import comun from "../assets/js/comun.mixin"
 export default {
+  mixins:[comun],
     data() {
       return {
-        naume_layot: '',
+        url: '',
         items: [
         ['mdi-email', 'Inbox'],
         ['mdi-account-supervisor-circle', 'Supervisors'],
@@ -49,31 +52,9 @@ export default {
     beforeMount() {
       this.cargarPagina();
       this.cargarRetos();
+      this.url = config.URL_API+'/';
     },
     methods: {
-      async cargarPagina() {
-        this.nombre_usuario = localStorage.getItem("nombre_usuario");
-        let token = localStorage.getItem("token");
-        if (token === "null" || token == null || token == undefined) {
-          this.name_layout = 'example'
-          $nuxt.setLayout('example')
-        } else {
-          await this.validarToken(token);
-        }
-      },
-
-      async validarToken(token) {
-        try {
-          let url = config.URL_API + "/validar-token/" + token;
-          let respuesta = await this.$axios.get(url);
-          console.log(respuesta);
-          this.name_layout = 'default';
-          $nuxt.setLayout('default')
-        } catch (error) {
-        //this.$router.push("/login");
-        }
-      },
-
       async cargarRetos() {
         let url = config.URL_API + "/retos";
         let payload = {};
@@ -111,11 +92,6 @@ export default {
           return 'Tipo reto 3'
         }
       },
-      toBase64(arr) {
-        return btoa(
-          arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
-      );
-      }
     },
   }
 </script>

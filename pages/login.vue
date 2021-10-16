@@ -29,7 +29,9 @@
 </template>
 <script>
 import config from "../assets/js/config";
+import comun from "../assets/js/comun.mixin"
 export default {
+  mixins:[comun],
   data() {
     return{
       email: null,
@@ -37,6 +39,9 @@ export default {
       requiredRule: [(v) => !!v || "El campo es obligatorio"],
       loading: false,
     };
+  },
+  beforeMount(){
+    this.cargarPagina();
   },
   methods: {
     async login() {

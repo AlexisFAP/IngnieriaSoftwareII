@@ -46,7 +46,9 @@
 </template>
 <script>
 import config from "../assets/js/config";
+import comun from "../assets/js/comun.mixin"
 export default {
+  mixins:[comun],
   data() {
     return{
       name: null,
@@ -58,6 +60,9 @@ export default {
       requiredRule: [(v) => !!v || "El campo es obligatorio"],
       cargos: ['Profesor', 'Estudiante'],
     };
+  },
+  beforeMount(){
+    this.cargarPagina();
   },
   methods: {
     async singup() {

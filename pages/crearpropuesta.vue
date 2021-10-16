@@ -24,13 +24,18 @@
 </template>
 <script>
 import config from "../assets/js/config";
+import comun from "../assets/js/comun.mixin"
 export default {
+  mixins:[comun],
   data() {
     return{
         descripcion: null,
         titulo: null,
         requiredRule: [(v) => !!v || "El campo es obligatorio"],
     };
+  },
+  beforeMount(){
+    this.cargarPagina();
   },
   methods: {
       async createPropuesta() {
@@ -44,7 +49,6 @@ export default {
         payload.id_reto = localStorage.getItem("id_reto");;
         payload.descripcion = this.descripcion;
         payload.titulo = this.titulo;
-        //console.log(this.descripcion);
         let response = await this.$axios.post(url, payload)
         let data = response.data
         if (data.ok == false) {

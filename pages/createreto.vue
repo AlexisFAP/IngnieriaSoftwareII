@@ -59,7 +59,9 @@
 </template>
 <script>
 import config from "../assets/js/config";
+import comun from "../assets/js/comun.mixin"
 export default {
+  mixins:[comun],
   data() {
     return{
         id_usuario: null,
@@ -78,15 +80,16 @@ export default {
         file: null,
     };
   },
+  beforeMount(){
+    this.cargarPagina();
+  },
   methods: {
-      onFileSelected(event) {
-        this.portada = event.target.files[0]
-      },
-      subirArchivo(){
+      async subirArchivo(){
         let InstFormData = new FormData();
         InstFormData.append('file' , this.file);
+        this.portada = this.file.name;
         let url = config.URL_API + "/upload";
-        let response = this.$axios.post(url, InstFormData , {headers : {'content-type': 'multipart/form-data'}})
+        let response = this.$axios.post(url, InstFormData , {headers : {'content-type': 'multipart/form-data',token:localStorage.getItem("token")}})
         console.log(response);
       },
       async createReto() {

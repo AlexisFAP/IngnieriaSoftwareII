@@ -64,19 +64,9 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Qué es TRL',
-          to: '/trl'
-        },
-        {
-          icon: 'mdi-chart-bubble',
           title: 'Qué es Innovación abierta',
           to: '/innovacion'
         },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Qué es un Reto',
-          to: '/reto'
-        }
       ],
       miniVariant: false,
       right: true,

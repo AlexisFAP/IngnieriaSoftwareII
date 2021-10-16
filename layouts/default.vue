@@ -67,19 +67,9 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Qué es TRL',
-          to: '/trl'
-        },
-        {
-          icon: 'mdi-chart-bubble',
           title: 'Qué es Innovación abierta',
           to: '/innovacion'
         },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Qué es un Reto',
-          to: '/reto'
-        }
       ],
       miniVariant: false,
       right: true,
@@ -88,10 +78,11 @@ export default {
     };
   },
   beforeMount() {
-    this.cargarPagina();
+    //this.cargarPagina();
+    this.nombre_usuario = localStorage.getItem("nombre_usuario")
   },
   methods: {
-    async cargarPagina() {
+    /*async cargarPagina() {
       this.nombre_usuario = localStorage.getItem("nombre_usuario");
       let token = localStorage.getItem("token");
       if (token === "null" || token == null || token == undefined) {
@@ -103,13 +94,13 @@ export default {
 
     async validarToken(token) {
       try {
-        let url = config.URL_API + "/validar-token/" + token;
+        let url = config.URL_API + "/validar-token?token=" + token;
         let respuesta = await this.$axios.get(url);
         console.log(respuesta);
       } catch (error) {
         //this.$router.push("/login");
       }
-    },
+    },*/
     createReto() {
       this.$router.push('/createreto');
     },
