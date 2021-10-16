@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router()
 
 const controller = require('../controllers/usuarios.controller')
+const { validarToken } = require('../services/jwt.service');
 
 router.put('/usuarios', async (req, res) => {
     let usuario = req.body
@@ -39,6 +40,18 @@ router.get('/usuarios/:id?', (req, res) => {
         return res.status(500).send({ ok: false, message: 'Ha ocurrido un error no controlado', info: null })
     })
 
+})
+
+router.get('/validar-token', (req, res) => {
+    try {
+        let token = req.query.token
+        if (token == 'null')
+            return res.status(401).send({ ok: false, message: 'Token no valido', info: null })
+        let usuario_decodificado = validarToken(token)
+        return res.send({ ok: true, message: 'Token valido', info: usuario_decodificado })
+    } catch (error) {
+        return res.status(401).send({ ok: false, message: 'Token no valido', info: null })
+    }
 })
 
 module.exports = router

@@ -9,6 +9,7 @@ app.use(express.json())
 app.use(cors())
 //
 app.use(upload())
+app.use("/files",express.static('./uploads'));
 
 const router_usuario_public =  require('./routers/usuarios-public.router');
 app.use(router_usuario_public)
@@ -31,16 +32,16 @@ app.use(router_documento)
 const router_avance =  require('./routers/avances.router');
 app.use(router_avance)
 
+const auth_middleware = require('./controllers/auth.middleware');
+app.use('/', auth_middleware.validarTokenMiddleware)
 
-//
-const router_upload = require('./services/upload')
-app.use(router_upload)
+app.use('/', (req, res)=>{
+  let info={ok:false, message:'404 not found', info:null}
+  res.status(404).send(info)
+})
 
-/*const port = 3001
-
-app.listen(port, () => {
-    console.log(`API: http://localhost:${port}`)
-  })]*/
+const router_archivos =  require('./routers/archivos.router');
+app.use(router_archivos)
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
