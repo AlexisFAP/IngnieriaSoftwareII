@@ -30,4 +30,10 @@ const modificarReto = async (reto) => {
     return await _pg.ejecutarQuery(sql, datos)
 }
 
-module.exports = { crearReto, consultarRetos, eliminarReto, modificarReto}
+const ultimoId = async (id) => {
+    const sql = `SELECT id FROM public.retos order by id desc LIMIT 1;`
+    const datos = []
+    return await _pg.ejecutarQuery(sql, datos)
+}
+
+module.exports = { crearReto, consultarRetos, eliminarReto, modificarReto, ultimoId}

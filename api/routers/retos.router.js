@@ -56,6 +56,16 @@ router.get('/retos/:id?', (req, res) => {
         console.log(error);
         return res.status(500).send({ ok: false, message: 'Ha ocurrido un error no controlado', info: null })
     })
+})
+
+router.get('/id', (req, res) => {
+    controller.ultimoId().then(respuesta_db => {
+        let info = respuesta_db.rows
+        return res.send({ ok: true, message: 'Id consultado', info })
+    }).catch(error => {
+        console.log(error);
+        return res.status(500).send({ ok: false, message: 'Ha ocurrido un error no controlado', info: null })
+    })
 
 })
 
