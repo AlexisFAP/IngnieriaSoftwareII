@@ -8,34 +8,59 @@
             label="Nombre Completo" color="white"
             v-model="name"
             :rules="requiredRule"
-          ></v-text-field>
+          > <template #label>
+              <span class="red--text"><strong>* </strong></span>Nombre Completo
+            </template>
+          </v-text-field>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
           <v-select
             :items="cargos"
             v-model="cargo"
             label="Cargo" color="white"
             :rules="requiredRule"
-          ></v-select>
+          >
+          <template #label>
+              <span class="red--text"><strong>* </strong></span>Cargo
+            </template>
+          </v-select>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
           <v-text-field
             type="password"
             label="Contraseña" color="white"
             v-model="clave"
             :rules="requiredRule"
-          ></v-text-field>
+          > <template #label>
+              <span class="red--text"><strong>* </strong></span>Contraseña
+            </template>
+          </v-text-field>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
           <v-text-field
             label="Usuario" color="white"
             v-model="user"
             :rules="requiredRule"
-          ></v-text-field>
+          > <template #label>
+              <span class="red--text"><strong>* </strong></span>Usuario
+            </template>
+          </v-text-field>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
           <v-text-field
             label="Teléfono" color="white"
             v-model="phone"
             :rules="requiredRule"
-          ></v-text-field>
+          > <template #label>
+              <span class="red--text"><strong>* </strong></span>Teléfono
+            </template>
+          </v-text-field>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
           <v-text-field
             label="Correo" color="white"
             v-model="email"
             :rules="requiredRule"
-          ></v-text-field>
+          > <template #label>
+              <span class="red--text"><strong>* </strong></span>Correo
+            </template>
+          </v-text-field>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
         </v-card-text>
         <v-card-actions>
           <v-btn color="success" @click="singup()">Registrarse</v-btn>

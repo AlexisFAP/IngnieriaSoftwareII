@@ -8,44 +8,76 @@
             label="Dependencia" color="white"
             v-model="dependencia"
             :rules="requiredRule"
-          ></v-text-field>
+          > <template #label>
+              <span class="red--text"><strong>* </strong></span>Dependencia
+            </template>
+          </v-text-field>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
           <v-text-field
             label="Problema" color="white"
             v-model="problema"
             :rules="requiredRule"
-          ></v-text-field>
+          > <template #label>
+              <span class="red--text"><strong>* </strong></span>Problema
+            </template>
+          </v-text-field>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
           <v-textarea
             label="Antecedentes" color="white"
             v-model="antecedentes"
             :rules="requiredRule"
-          ></v-textarea>
+          > <template #label>
+              <span class="red--text"><strong>* </strong></span>Antecedentes
+            </template>
+          </v-textarea>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
           <v-text-field
             label="Interesados" color="white"
             v-model="interesados"
             :rules="requiredRule"
-          ></v-text-field>
+          > <template #label>
+              <span class="red--text"><strong>* </strong></span>Interesados
+            </template>
+          </v-text-field>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
            <v-select
             :items="tipors"
             v-model="tipor"
             label="Tipo de Reto" color="white"
             :rules="requiredRule"
           ></v-select>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
+            <template #label>
+              <span class="red--text"><strong>* </strong></span>Tipo de Reto
+            </template>
           <v-textarea
             label="Impacto Esperado" color="white"
             v-model="impacto_esperado"
             :rules="requiredRule"
-          ></v-textarea>
+          > <template #label>
+              <span class="red--text"><strong>* </strong></span>Impacto Esperado
+            </template>
+          </v-textarea>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
           <v-file-input
             v-model="file"
             placeholder="Subir Archivo"
             label="Subir Archivo"
             prepend-icon="mdi-archive">
+            <template #label>
+              <span class="red--text"><strong>* </strong></span>Subir Archivo
+            </template>
           </v-file-input>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
           <v-text-field
             label="Premio" color="white"
             v-model="premio"
             :rules="requiredRule"
-          ></v-text-field>
+          > <template #label>
+              <span class="red--text"><strong>* </strong></span>Premio
+            </template>
+          </v-text-field>
+          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
           <v-row justify="center">
             <v-date-picker color="blue light" header-color="primary" v-model="fecha"></v-date-picker>
           </v-row>
