@@ -5,15 +5,21 @@
         <v-card-title primary-title> Propuesta </v-card-title>
         <v-card-text>
           <v-text-field
-            label="Titulo" color="white"
+            color="white"
             v-model="titulo"
             :rules="requiredRule"
-          ></v-text-field>
+          ><template #label>
+              <span class="red--text"><strong>* </strong></span>Título
+            </template></v-text-field>
+          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-textarea
-            label="Descripción" color="white"
+            color="white"
             v-model="descripcion"
             :rules="requiredRule"
-          ></v-textarea>
+          ><template #label>
+              <span class="red--text"><strong>* </strong></span>Descripción
+            </template></v-textarea>
+          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
         </v-card-text>
         <v-card-actions>
           <v-btn color="success" @click="createPropuesta()">Postular Propuesta</v-btn>

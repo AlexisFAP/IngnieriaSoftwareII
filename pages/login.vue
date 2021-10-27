@@ -65,6 +65,7 @@ export default {
           localStorage.setItem('token', token)
           localStorage.setItem('nombre_usuario', nombre_usuario)
           localStorage.setItem('id',id)
+          localStorage.setItem('rol',cargo)
           console.log(data.info);
           this.$router.push('/')
         } else {

@@ -12,7 +12,7 @@
               <span class="red--text"><strong>* </strong></span>Nombre Completo
             </template>
           </v-text-field>
-          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
+          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-select
             :items="cargos"
             v-model="cargo"
@@ -23,17 +23,21 @@
               <span class="red--text"><strong>* </strong></span>Cargo
             </template>
           </v-select>
-          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
+          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-text-field
-            type="password"
+            :type="show_password ? 'text' : 'password'"
             label="Contraseña" color="white"
             v-model="clave"
-            :rules="requiredRule"
+            counter
+            maxlength="20"
+            :rules="passwordRule"
+            :append-icon="show_password ? 'mdi-eye-off' : 'mdi-eye'"
+              @click:append="show_password = !show_password"
           > <template #label>
               <span class="red--text"><strong>* </strong></span>Contraseña
             </template>
           </v-text-field>
-          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
+          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-text-field
             label="Usuario" color="white"
             v-model="user"
@@ -42,7 +46,7 @@
               <span class="red--text"><strong>* </strong></span>Usuario
             </template>
           </v-text-field>
-          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
+          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-text-field
             label="Teléfono" color="white"
             v-model="phone"
@@ -51,7 +55,7 @@
               <span class="red--text"><strong>* </strong></span>Teléfono
             </template>
           </v-text-field>
-          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
+          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-text-field
             label="Correo" color="white"
             v-model="email"
@@ -60,7 +64,7 @@
               <span class="red--text"><strong>* </strong></span>Correo
             </template>
           </v-text-field>
-          <v-list-tile-sub-title>Campo Obligatorio</v-list-tile-sub-title>
+          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
         </v-card-text>
         <v-card-actions>
           <v-btn color="success" @click="singup()">Registrarse</v-btn>
@@ -83,7 +87,9 @@ export default {
       email: null,
       clave: null,
       requiredRule: [(v) => !!v || "El campo es obligatorio"],
+      passwordRule: [(v) => !!v || "El campo es obligatorio",value => value && value.length >= 8 || 'Max 20 characters'],
       cargos: ['Profesor', 'Estudiante'],
+      show_password: false,
     };
   },
   beforeMount(){
