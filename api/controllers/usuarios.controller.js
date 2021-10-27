@@ -38,7 +38,7 @@ const login = async (credenciales) => {
     let usuario = respuesta_db.rowCount == 1 ? respuesta_db.rows[0] : null
     if (usuario) {
         let token = crearToken(usuario)
-        return { token, nombre_completo: usuario.nombre_completo, id:usuario.id }
+        return { token, nombre_completo: usuario.nombre_completo, id:usuario.id, rol:usuario.cargo}
     } else {
         return undefined
     }
