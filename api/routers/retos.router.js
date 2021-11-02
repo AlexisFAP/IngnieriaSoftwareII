@@ -34,11 +34,24 @@ router.put('/retos', async (req, res) => {
     }
 })
 
-router.delete('/retos/:id', async (req, res) => {
+/*router.delete('/retos/:id', async (req, res) => {
     try {
         let id = req.params.id
         let respuesta_db = await controller.eliminarReto(id)
         let info = respuesta_db.rowCount == 1 ? `Reto eliminado: ${id}` : ''
+        let message = respuesta_db.rowCount == 1 ? 'Reto eliminado correctamente' : 'No se eliminado el reto.'
+        return res.send({ ok: respuesta_db.rowCount == 1, message, info })
+    } catch (error) {
+        return res.status(500).send({ ok: false, message: 'Ha ocurrido un error no controlado', info: null })
+    }
+
+})*/
+
+router.delete('/retos', async (req, res) => {
+    try {
+        let reto = req.body
+        let respuesta_db = await controller.eliminarReto(reto)
+        let info = respuesta_db.rowCount == 1 ? `Reto eliminado: ${reto.id}` : ''
         let message = respuesta_db.rowCount == 1 ? 'Reto eliminado correctamente' : 'No se eliminado el reto.'
         return res.send({ ok: respuesta_db.rowCount == 1, message, info })
     } catch (error) {
