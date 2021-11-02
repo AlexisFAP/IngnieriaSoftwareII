@@ -3,6 +3,7 @@
     <v-card>
       <v-form ref="formularioReto">
         <v-card-title primary-title> Crear Reto </v-card-title>
+        <v-card-subtitle>* Campo Obligatorio</v-card-subtitle>
         <v-card-text>
           <v-text-field
           color="white"
@@ -12,7 +13,6 @@
               <span class="white--text"><strong>* </strong></span>Dependencia
             </template>
           </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-text-field
           color="white"
             v-model="problema"
@@ -21,7 +21,6 @@
               <span class="red--text"><strong>* </strong></span>Problema
             </template>
           </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-textarea
           color="white"
             v-model="antecedentes"
@@ -30,7 +29,6 @@
               <span class="red--text"><strong>* </strong></span>Antecedentes
             </template>
           </v-textarea>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-text-field
           color="white"
             v-model="interesados"
@@ -39,7 +37,6 @@
               <span class="red--text"><strong>* </strong></span>Interesados
             </template>
           </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
            <v-select
            color="white"
             :items="tipors"
@@ -50,7 +47,6 @@
             </template>
           </v-select>
           
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
             <template #label>
               <span class="red--text"><strong>* </strong></span>Tipo de Reto
             </template>
@@ -62,7 +58,6 @@
               <span class="red--text"><strong>* </strong></span>Impacto Esperado
             </template>
           </v-textarea>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-file-input
             v-model="file"
             placeholder="Subir Archivo"
@@ -72,7 +67,6 @@
               <span class="red--text"><strong>* </strong></span>Subir Archivo
             </template>
           </v-file-input>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-text-field
            color="white"
             v-model="premio"
@@ -81,7 +75,6 @@
               <span class="red--text"><strong>* </strong></span>Premio
             </template>
           </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-row justify="center">
             <v-date-picker color="blue light" header-color="primary" v-model="fecha"></v-date-picker>
           </v-row>
@@ -164,6 +157,7 @@ export default {
         payload.portada = this.portada;
         payload.premio = this.premio;
         payload.fecha = this.fecha;
+        payload.estado = 'Pendiente';
         console.log("fecha buena 2"+ this.fecha);
         let response = await this.$axios.post(url, payload)
         let data = response.data

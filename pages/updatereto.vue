@@ -2,92 +2,21 @@
   <div>
     <v-card>
       <v-form ref="formularioReto">
-        <v-card-title primary-title> Crear Reto </v-card-title>
+        <v-card-title primary-title> Cambiar Estado Reto </v-card-title>
+        <v-card-subtitle>* Campo Obligatorio</v-card-subtitle>
         <v-card-text>
-          <v-text-field
-          color="white"
-            v-model="dependencia"
-            :rules="requiredRule"
-          > <template #label>
-              <span class="white--text"><strong>* </strong></span>Dependencia
-            </template>
-          </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
-          <v-text-field
-          color="white"
-            v-model="problema"
-            :rules="requiredRule"
-          > <template #label>
-              <span class="red--text"><strong>* </strong></span>Problema
-            </template>
-          </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
-          <v-textarea
-          color="white"
-            v-model="antecedentes"
-            :rules="requiredRule"
-          > <template #label>
-              <span class="red--text"><strong>* </strong></span>Antecedentes
-            </template>
-          </v-textarea>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
-          <v-text-field
-          color="white"
-            v-model="interesados"
-            :rules="requiredRule"
-          > <template #label>
-              <span class="red--text"><strong>* </strong></span>Interesados
-            </template>
-          </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
            <v-select
            color="white"
-            :items="tipors"
-            v-model="tipor"
+            :items="estados"
+            v-model="estado"
             :rules="requiredRule"
           ><template #label>
-              <span class="red--text"><strong>* </strong></span>Tipo Reto
+              <span class="red--text"><strong>* </strong></span>Estado
             </template>
           </v-select>
-          
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
-            <template #label>
-              <span class="red--text"><strong>* </strong></span>Tipo de Reto
-            </template>
-          <v-textarea
-            color="white"
-            v-model="impacto_esperado"
-            :rules="requiredRule"
-          > <template #label>
-              <span class="red--text"><strong>* </strong></span>Impacto Esperado
-            </template>
-          </v-textarea>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
-          <v-file-input
-            v-model="file"
-            placeholder="Subir Archivo"
-            color="white"
-            prepend-icon="mdi-archive">
-            <template #label>
-              <span class="red--text"><strong>* </strong></span>Subir Archivo
-            </template>
-          </v-file-input>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
-          <v-text-field
-           color="white"
-            v-model="premio"
-            :rules="requiredRule"
-          > <template #label>
-              <span class="red--text"><strong>* </strong></span>Premio
-            </template>
-          </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
-          <v-row justify="center">
-            <v-date-picker color="blue light" header-color="primary" v-model="fecha"></v-date-picker>
-          </v-row>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="success" @click="createReto()">Crear Reto</v-btn>
+          <v-btn color="success" @click="actualizarEstado()">Actualizar Estado</v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -100,20 +29,9 @@ export default {
   mixins:[comun],
   data() {
     return{
-        id_usuario: null,
-        dependencia: null,
-        problema: null,
-        antecedentes: null,
-        interesados: null,
-        id_tipo: null,
-        tipor: null,
-        tipors: ['Ideación', 'Tipo reto 2', 'Tipo reto 3'],
-        impacto_esperado: null,
-        portada: null,
+        estado:null,
+        estados: ['Completado', 'En Proceso', 'Cancelado'],
         requiredRule: [(v) => !!v || "El campo es obligatorio"],
-        premio: null,
-        fecha: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        file: null,
     };
   },
   beforeMount(){
@@ -121,51 +39,21 @@ export default {
     this.verificarRol();
   },
   methods: {
-      async subirArchivo(){
-        let InstFormData = new FormData();
-        InstFormData.append('file' , this.file);
-        this.portada = this.file.name;
-        let url = config.URL_API + "/upload";
-        let response = this.$axios.post(url, InstFormData , {headers : {'content-type': 'multipart/form-data',token:localStorage.getItem("token")}})
-        console.log(response);
-      },
       verificarRol(){
         if(!localStorage.getItem("rol")=="Profesor"){
           this.$router.push("/");
         }
       },
-      async createReto() {
-        this.subirArchivo();
-        console.log("fecha buena "+ this.fecha);
+      async actualizarEstado() {
         try{
             if (!this.$refs.formularioReto.validate()) {
                 return;
             }
         let url = config.URL_API + "/retos";
         let payload = {};
-        payload.id_usuario = localStorage.getItem("id");
-        payload.dependencia = this.dependencia
-        payload.problema = this.problema;
-        payload.antecedentes = this.antecedentes;
-        payload.interesados = this.interesados;
-        switch (this.tipor) {
-            case 'Ideación':
-                this.id_tipo = '1';
-                break;
-            case 'Tipo reto 2':
-                this.id_tipo = '2';
-                break;
-            case 'Tipo reto 3':
-                this.id_tipo = '3';
-                break;
-        }
-        payload.id_tipo_reto = this.id_tipo;
-        payload.impacto_esperado = this.impacto_esperado;
-        payload.portada = this.portada;
-        payload.premio = this.premio;
-        payload.fecha = this.fecha;
-        console.log("fecha buena 2"+ this.fecha);
-        let response = await this.$axios.post(url, payload)
+        payload.estado = this.estado;
+        payload.id = localStorage.getItem('id_reto')
+        let response = await this.$axios.put(url, payload)
         let data = response.data
         if (data.ok == false) {
           this.$swal({
@@ -179,9 +67,13 @@ export default {
             this.$swal({
             type: "success",
             icon: "success",
-            title: "Reto Creado",
-            text: "Reto creado exitosamente",
-          })
+            title: "Reto Editado",
+            text: "Reto editado exitosamente",
+          }).then((result) =>{
+            if(!result.isConfirmed){
+              this.$router.push("/");
+            }
+          });
         }
         console.log(response);
         }catch (error){

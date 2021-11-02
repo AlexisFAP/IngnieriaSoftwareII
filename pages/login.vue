@@ -62,10 +62,11 @@ export default {
           let token = data.info.token
           let nombre_usuario =  data.info.nombre_completo
           let id = data.info.id
+          let cargo = data.info.cargo
           localStorage.setItem('token', token)
           localStorage.setItem('nombre_usuario', nombre_usuario)
           localStorage.setItem('id',id)
-          localStorage.setItem('rol',cargo)
+          localStorage.setItem('cargo',cargo)
           console.log(data.info);
           this.$router.push('/')
         } else {
@@ -75,7 +76,6 @@ export default {
             title: "Oops...",
             text: data.message,
           });
-          console.log("no da");
         }
         console.log(response);
       } catch (error) {

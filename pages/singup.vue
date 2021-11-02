@@ -3,6 +3,7 @@
     <v-card>
       <v-form ref="formularioSingup">
         <v-card-title primary-title> Registrarse </v-card-title>
+        <v-card-subtitle>* Campo Obligatorio</v-card-subtitle>
         <v-card-text>
           <v-text-field
             label="Nombre Completo" color="white"
@@ -12,7 +13,6 @@
               <span class="red--text"><strong>* </strong></span>Nombre Completo
             </template>
           </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-select
             :items="cargos"
             v-model="cargo"
@@ -23,7 +23,6 @@
               <span class="red--text"><strong>* </strong></span>Cargo
             </template>
           </v-select>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-text-field
             :type="show_password ? 'text' : 'password'"
             label="Contraseña" color="white"
@@ -37,7 +36,6 @@
               <span class="red--text"><strong>* </strong></span>Contraseña
             </template>
           </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-text-field
             label="Usuario" color="white"
             v-model="user"
@@ -46,7 +44,6 @@
               <span class="red--text"><strong>* </strong></span>Usuario
             </template>
           </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-text-field
             label="Teléfono" color="white"
             v-model="phone"
@@ -55,7 +52,6 @@
               <span class="red--text"><strong>* </strong></span>Teléfono
             </template>
           </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-text-field
             label="Correo" color="white"
             v-model="email"
@@ -64,7 +60,6 @@
               <span class="red--text"><strong>* </strong></span>Correo
             </template>
           </v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
         </v-card-text>
         <v-card-actions>
           <v-btn color="success" @click="singup()">Registrarse</v-btn>
@@ -88,7 +83,7 @@ export default {
       clave: null,
       requiredRule: [(v) => !!v || "El campo es obligatorio"],
       passwordRule: [(v) => !!v || "El campo es obligatorio",value => value && value.length >= 8 || 'Max 20 characters'],
-      cargos: ['Profesor', 'Estudiante'],
+      cargos: ['Profesor', 'Estudiante','Administrador'],
       show_password: false,
     };
   },
@@ -104,7 +99,7 @@ export default {
         let url = config.URL_API + "/usuarios";
         let payload = {};
         payload.nombre_completo = this.name;
-        payload.cargo = 'Estudiante';
+        payload.cargo = this.cargo;
         payload.clave = this.clave;
         payload.usuario = this.user;
         payload.telefono = this.phone;
@@ -119,7 +114,11 @@ export default {
             type: "success",
             icon: "success",
             title: "Usuario Creado",
-            text: "Su usuario se puedo crear exitosamente",
+            text: "Su usuario se pudo crear exitosamente",
+          }).then((result) =>{
+            if(!result.isConfirmed){
+              this.$router.push("/");
+            }
           });
         } else {
           this.$swal({

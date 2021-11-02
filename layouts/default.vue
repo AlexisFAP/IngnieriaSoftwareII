@@ -69,7 +69,7 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'Qué es Innovación abierta',
           to: '/innovacion'
-        },
+        }
       ],
       miniVariant: false,
       right: true,
@@ -78,29 +78,17 @@ export default {
     };
   },
   beforeMount() {
-    //this.cargarPagina();
     this.nombre_usuario = localStorage.getItem("nombre_usuario")
+    if(localStorage.getItem('cargo')== 'Administrador'){
+      let a = {
+        icon: 'mdi-chart-bubble',
+          title: 'Verificar Retos',
+          to: '/retos'
+      }
+      this.items.push(a)
+    }
   },
   methods: {
-    /*async cargarPagina() {
-      this.nombre_usuario = localStorage.getItem("nombre_usuario");
-      let token = localStorage.getItem("token");
-      if (token === "null" || token == null || token == undefined) {
-        //this.$router.push("/login");
-      } else {
-        await this.validarToken(token);
-      }
-    },
-
-    async validarToken(token) {
-      try {
-        let url = config.URL_API + "/validar-token?token=" + token;
-        let respuesta = await this.$axios.get(url);
-        console.log(respuesta);
-      } catch (error) {
-        //this.$router.push("/login");
-      }
-    },*/
     createReto() {
       this.$router.push('/createreto');
     },

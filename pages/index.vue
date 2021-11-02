@@ -1,7 +1,7 @@
 <template>
     <div>
-      <v-card color="#0077B6" :disabled="show" 
-              v-if="show == true">
+      <v-card color="#0077B6"
+              v-if="show">
         <v-form>
           <v-card-title class="title" primary-title> Mis Retos </v-card-title>
         </v-form>
@@ -25,13 +25,16 @@
                 <v-card-text>
                   <b>Premio: </b> {{item.premio}}
                 </v-card-text>
-                <v-btn @click="editarReto(item.id)">Editar Reto</v-btn>
-                <v-btn @click="verPropuestas()">Ver Propuestas</v-btn>
+                <v-card-text>
+                  <b>Estado: </b> {{item.estado}}
+                </v-card-text>
+                <v-btn @click="editarReto(item.id)">Cambiar Estado</v-btn>
+                <v-btn @click="verPropuestas(item.id)">Ver Propuestas</v-btn>
               </v-card>
             </template>
             </v-row>
       </v-card>
-
+      <p></p>
         <v-card color="#0077B6">
             <v-form>
               <v-card-title class="title" primary-title> Lista de Retos </v-card-title>
@@ -55,6 +58,9 @@
                 </v-card-text>
                 <v-card-text>
                   <b>Premio: </b> {{item.premio}}
+                </v-card-text>
+                <v-card-text>
+                  <b>Estado: </b> {{item.estado}}
                 </v-card-text>
                 <v-btn @click="propuesta(item.id)">Proponer Propuesta</v-btn>
               </v-card>
@@ -102,14 +108,15 @@ export default {
         payload = {};
         let response2 = await this.$axios.get(url, payload)
         let data2 = response2.data
-        console.log(data.info[0]);
         for(let i=0;i<data2.info.length;i++){
           this.ids_retos.push(data2.info[i]);
         }
         for(let i=0;i<data.info.length;i++){
-          this.retos.push(data.info[i]);
+          if(data.info[i].estado != 'Pendiente'){
+            this.retos.push(data.info[i]);
+          }
         }
-        console.log(this.retos);
+        console.log(this.mis_retos);
       },
       propuesta(index) {
         localStorage.setItem('id_reto', index)
@@ -127,13 +134,30 @@ export default {
         }
       },
       async cargarMisRetos(){
-        
+        let url = config.URL_API + "/retos";
+        let payload = {};
+        let response = await this.$axios.get(url, payload)
+        let data = response.data
+        if (data.ok == true) {
+          console.log(data.info);
+        }
+        for(let i=0;i<data.info.length;i++){
+          if(localStorage.getItem('id') == data.info[i].id_usuario && data.info[i].estado != 'Pendiente'){
+            this.mis_retos.push(data.info[i]);
+          }
+        }
+        if(this.mis_retos.length > 0){
+          this.show = true;
+        }else{
+          this.show = false;
+        }
       },
       editarReto(index){
         localStorage.setItem('id_reto', index)
         this.$router.push('/updatereto');
       },
-      verPropuestas(){
+      verPropuestas(index){
+        localStorage.setItem('id_reto', index)
         this.$router.push('/propuestas');
       }
     },

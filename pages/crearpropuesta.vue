@@ -3,6 +3,7 @@
     <v-card>
       <v-form ref="formularioPropuesta">
         <v-card-title primary-title> Propuesta </v-card-title>
+        <v-card-subtitle>* Campo Obligatorio</v-card-subtitle>
         <v-card-text>
           <v-text-field
             color="white"
@@ -11,7 +12,6 @@
           ><template #label>
               <span class="red--text"><strong>* </strong></span>Título
             </template></v-text-field>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
           <v-textarea
             color="white"
             v-model="descripcion"
@@ -19,7 +19,6 @@
           ><template #label>
               <span class="red--text"><strong>* </strong></span>Descripción
             </template></v-textarea>
-          <v-card-subtitle>Campo Obligatorio</v-card-subtitle>
         </v-card-text>
         <v-card-actions>
           <v-btn color="success" @click="createPropuesta()">Postular Propuesta</v-btn>
@@ -55,6 +54,7 @@ export default {
         payload.id_reto = localStorage.getItem("id_reto");;
         payload.descripcion = this.descripcion;
         payload.titulo = this.titulo;
+        payload.estado = 'En Proceso'
         let response = await this.$axios.post(url, payload)
         let data = response.data
         if (data.ok == false) {
@@ -71,7 +71,11 @@ export default {
             icon: "success",
             title: "Propuesta Creada",
             text: "Propuesta creadoa exitosamente",
-          })
+          }).then((result) =>{
+            if(!result.isConfirmed){
+              this.$router.push("/");
+            }
+          });
         }
         console.log(response);
         }catch (error){
