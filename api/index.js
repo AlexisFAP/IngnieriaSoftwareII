@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-//
+
 const upload = require('express-fileupload')
 
 const app = express()
@@ -11,9 +11,11 @@ app.use(cors())
 app.use(upload())
 app.use("/files",express.static('./uploads'));
 
+// ****************** IMPORTAR RUTAS PUBLICAS *************
 const router_usuario_public =  require('./routers/usuarios-public.router');
 app.use(router_usuario_public)
 
+// ****************** IMPORTAR RUTAS PRIVADAS *************
 const router_usuario_private =  require('./routers/usuarios-private.router');
 app.use(router_usuario_private)
 

@@ -2,13 +2,13 @@ const PostgresService = require('../services/postgres.service');
 const _pg = new PostgresService()
 
 const crearAvance = async (avance) => {
-    const sql = 'INSERT INTO public.avances (id_avance, id_usuario, id_reto, descripcion, fecha) VALUES($1, $2, $3, $4, $5);'
-    const datos = [avance.id, avance.id_usuario, avance.id_reto, avance.descripcion, avance.fecha]
+    const sql = 'INSERT INTO public.avances (id, titulo, descripcion, fecha, id_postulacion) VALUES($1, $2, $3, $4, $5);'
+    const datos = [avance.id, avance.tituli, avance.descripcion, avance.fecha, avance.id_postulacion]
     return await _pg.ejecutarQuery(sql, datos)
 }
 
 const consultarAvances = async (id) => {
-    let sql = 'SELECT id, id_usuario, id_reto, descripcion, fecha FROM avances'
+    let sql = 'SELECT * fecha FROM avances'
     if (id) {
         sql += ` WHERE id = $1`
         const datos = [id]
@@ -25,8 +25,8 @@ const eliminarAvance = async (id) => {
 }
 
 const modificarAvance = async (avance) => {
-    const sql = `UPDATE public.avances SET id_usuario=$1, id_reto=$2, descripcion=$3, fecha=$4  WHERE id=$5;`
-    const datos = [avance.id_usuario, avance.id_reto, avance.descripcion, avance.fecha, avance.id]
+    const sql = `UPDATE public.avances SET titulo=$1, descripcion=$2, fecha=$3  WHERE id=$4;`
+    const datos = [ avance.titulo, avance.descripcion, avance.fecha, avance.id]
     return await _pg.ejecutarQuery(sql, datos)
 }
 
