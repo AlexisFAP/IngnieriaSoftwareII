@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card>
+    <v-card id="card" max-width="600px">
       <v-form ref="formularioSingup">
         <v-card-title primary-title> Registrarse </v-card-title>
         <v-card-subtitle>* Campo Obligatorio</v-card-subtitle>
@@ -143,11 +143,14 @@ export default {
 };
 </script>
 <style scoped>
+#card{
+  margin: 0 auto;
+}
 .theme--dark.v-card {
   background-color: #0077B6;
 }
 .theme--dark.success {
-  background-color: #90E0EF !important;
-  border-color: #90E0EF !important;
+  background-color: rgb(115, 204, 219) !important;
+  border-color: rgb(115, 204, 219) !important;
 }
 </style>

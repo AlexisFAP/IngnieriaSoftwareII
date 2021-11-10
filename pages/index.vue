@@ -66,7 +66,6 @@
               </v-card>
             </template>
             </v-row>
-            <!-- ></!-->
         </v-card>
     </div>
 </template>
@@ -123,14 +122,10 @@ export default {
         this.$router.push('/crearpropuesta');
       },
       tipoReto(num) {
-        if(num == 1){
-          return 'Ideación'
-        }
-        if(num == 2){
-          return 'Tipo reto 2'
-        }
-        if(num == 3){
-          return 'Tipo reto 3'
+        for(let i =0;i<this.ids_retos.length;i++){
+          if(this.ids_retos[i].id == num){
+            return this.ids_retos[i].nombre
+          }
         }
       },
       async cargarMisRetos(){
@@ -169,6 +164,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   margin-bottom: 10px;
+  background: rgb(43, 67, 148);
 }
 .v-card__title{
   font-size: 15px;
@@ -179,7 +175,7 @@ export default {
 .theme--dark.v-btn{
   
   margin-bottom: 10px;
-  background-color: #023E8A;
-  border-color: #023E8A;
+  background-color: #02306b;
+  border-color: #02306b;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card>
+    <v-card id="card" max-width="600px">
       <v-form ref="formularioReto">
         <v-card-title primary-title> Crear Reto </v-card-title>
         <v-card-subtitle>* Campo Obligatorio</v-card-subtitle>
@@ -10,7 +10,7 @@
             v-model="dependencia"
             :rules="requiredRule"
           > <template #label>
-              <span class="white--text"><strong>* </strong></span>Dependencia
+              <span class="red--text"><strong>* </strong></span>Dependencia
             </template>
           </v-text-field>
           <v-text-field
@@ -25,6 +25,7 @@
           color="white"
             v-model="antecedentes"
             :rules="requiredRule"
+            rows="3"
           > <template #label>
               <span class="red--text"><strong>* </strong></span>Antecedentes
             </template>
@@ -42,11 +43,12 @@
             :items="tipors"
             v-model="tipor"
             :rules="requiredRule"
+            item-text="nombre"
+            item-value="id"
           ><template #label>
               <span class="red--text"><strong>* </strong></span>Tipo Reto
             </template>
           </v-select>
-          
             <template #label>
               <span class="red--text"><strong>* </strong></span>Tipo de Reto
             </template>
@@ -54,6 +56,7 @@
             color="white"
             v-model="impacto_esperado"
             :rules="requiredRule"
+            rows="3"
           > <template #label>
               <span class="red--text"><strong>* </strong></span>Impacto Esperado
             </template>
@@ -79,7 +82,7 @@
             <v-date-picker color="blue light" header-color="primary" v-model="fecha"></v-date-picker>
           </v-row>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions id="a">
           <v-btn color="success" @click="createReto()">Crear Reto</v-btn>
         </v-card-actions>
       </v-form>
@@ -100,7 +103,7 @@ export default {
         interesados: null,
         id_tipo: null,
         tipor: null,
-        tipors: ['Ideación', 'Tipo reto 2', 'Tipo reto 3'],
+        tipors: [],
         impacto_esperado: null,
         portada: null,
         requiredRule: [(v) => !!v || "El campo es obligatorio"],
@@ -112,6 +115,7 @@ export default {
   beforeMount(){
     this.cargarPagina();
     this.verificarRol();
+    this.cargarTipoRetos();
   },
   methods: {
       async subirArchivo(){
@@ -123,9 +127,20 @@ export default {
         console.log(response);
       },
       verificarRol(){
-        if(!localStorage.getItem("rol")=="Profesor"){
+        if(localStorage.getItem("cargo") != "Profesor"){
           this.$router.push("/");
         }
+      },
+      async cargarTipoRetos(){
+        let url =config.URL_API + "/tiporeto";
+        let payload = {}
+        let response = await this.$axios.get(url, payload)
+        let data = response.data
+        for(let i=0;i<data.info.length;i++){
+          this.tipors.push(data.info[i]);
+        }
+        console.log("fa");
+        console.log(this.tipors);
       },
       async createReto() {
         this.subirArchivo();
@@ -141,18 +156,7 @@ export default {
         payload.problema = this.problema;
         payload.antecedentes = this.antecedentes;
         payload.interesados = this.interesados;
-        switch (this.tipor) {
-            case 'Ideación':
-                this.id_tipo = '1';
-                break;
-            case 'Tipo reto 2':
-                this.id_tipo = '2';
-                break;
-            case 'Tipo reto 3':
-                this.id_tipo = '3';
-                break;
-        }
-        payload.id_tipo_reto = this.id_tipo;
+        payload.id_tipo_reto = this.tipor;
         payload.impacto_esperado = this.impacto_esperado;
         payload.portada = this.portada;
         payload.premio = this.premio;
@@ -192,11 +196,17 @@ export default {
 };
 </script>
 <style scoped>
+#card{
+  margin: 0 auto;
+}
+#a{
+  justify-content: center;
+}
 .theme--dark.v-card {
   background-color: #0077B6;
 }
 .theme--dark.success {
-  background-color: #90E0EF !important;
-  border-color: #90E0EF !important;
+  background-color: rgb(115, 204, 219) !important;
+  border-color: rgb(115, 204, 219) !important;
 }
 </style>

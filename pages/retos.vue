@@ -2,7 +2,7 @@
     <div>
         <v-card color="#0077B6">
             <v-form>
-              <v-card-title class="title" primary-title> Lista de Retos </v-card-title>
+              <v-card-title class="title" primary-title> Estado de los Retos </v-card-title>
             </v-form>
             <v-row justify="space-around">
             <template v-for="(item) in retos">
@@ -32,7 +32,6 @@
               </v-card>
             </template>
             </v-row>
-            <!-- ></!-->
         </v-card>
     </div>
 </template>
@@ -50,6 +49,9 @@ export default {
     beforeMount() {
       this.cargarPagina();
       this.cargarRetos();
+      if(localStorage.getItem("cargo")!="Administrador"){
+          this.$router.push("/");
+      }
     },
     methods: {
       async cargarRetos() {
@@ -71,6 +73,8 @@ export default {
           this.retos.push(data.info[i]);
         }
         console.log(this.mis_retos);
+        console.log("dado");
+        console.log(this.ids_retos[0].nombre);
       },
       async aceptarReto(index) {
         let url = config.URL_API + "/retos";
@@ -128,14 +132,10 @@ export default {
         }
       },
       tipoReto(num) {
-        if(num == 1){
-          return 'Ideación'
-        }
-        if(num == 2){
-          return 'Tipo reto 2'
-        }
-        if(num == 3){
-          return 'Tipo reto 3'
+        for(let i =0;i<this.ids_retos.length;i++){
+          if(this.ids_retos[i].id == num){
+            return this.ids_retos[i].nombre
+          }
         }
       },
     },
@@ -147,6 +147,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   margin-bottom: 10px;
+  background: rgb(43, 67, 148);
 }
 .v-card__title{
   font-size: 15px;
@@ -157,7 +158,7 @@ export default {
 .theme--dark.v-btn{
   
   margin-bottom: 10px;
-  background-color: #023E8A;
-  border-color: #023E8A;
+  background-color: #02306b;
+  border-color: #02306b;
 }
 </style>

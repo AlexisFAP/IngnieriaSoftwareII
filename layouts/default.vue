@@ -25,7 +25,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar :clipped-left="clipped" fixed app>
+    <v-app-bar :clipped-left="clipped" fixed app height="70px">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
@@ -44,7 +44,7 @@
       </v-container>
     </v-main>
 
-    <v-footer app>
+    <v-footer app height="30px">
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -78,12 +78,25 @@ export default {
     };
   },
   beforeMount() {
-    this.nombre_usuario = localStorage.getItem("nombre_usuario")
+    this.nombre_usuario = localStorage.getItem("nombre_usuario") + " - " + localStorage.getItem("cargo")
     if(localStorage.getItem('cargo')== 'Administrador'){
       let a = {
         icon: 'mdi-chart-bubble',
           title: 'Verificar Retos',
           to: '/retos'
+      }
+      this.items.push(a)
+      let b = {
+        icon: 'mdi-chart-bubble',
+          title: 'Tipos de Retos',
+          to: '/tiporeto'
+      }
+      this.items.push(b)
+    }else if(localStorage.getItem('cargo')=='Estudiante' || localStorage.getItem('cargo')=='Profesor'){
+      let a = {
+        icon: 'mdi-chart-bubble',
+          title: 'Mis Propuestas',
+          to: '/mispropuestas'
       }
       this.items.push(a)
     }
