@@ -34,11 +34,11 @@ router.put('/postulaciones', async (req, res) => {
     }
 })
 
-router.delete('/postulaciones/:id', async (req, res) => {
+router.delete('/postulaciones', async (req, res) => {
     try {
-        let id = req.params.id
-        let respuesta_db = await controller.eliminarPostulacion(id)
-        let info = respuesta_db.rowCount == 1 ? `Postulacion eliminada: ${id}` : ''
+        let propuesta = req.body
+        let respuesta_db = await controller.eliminarPostulacion(propuesta)
+        let info = respuesta_db.rowCount == 1 ? `Postulacion eliminada: ${propuesta.id}` : ''
         let message = respuesta_db.rowCount == 1 ? 'Postulacion eliminada correctamente' : 'No se eliminado la Postulacion.'
         return res.send({ ok: respuesta_db.rowCount == 1, message, info })
     } catch (error) {

@@ -79,7 +79,6 @@ router.get('/id', (req, res) => {
         console.log(error);
         return res.status(500).send({ ok: false, message: 'Ha ocurrido un error no controlado', info: null })
     })
-
 })
 
 module.exports = router

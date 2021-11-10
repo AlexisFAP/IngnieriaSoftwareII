@@ -2,8 +2,8 @@ const PostgresService = require('../services/postgres.service');
 const _pg = new PostgresService()
 
 const crearPostulacion = async (postulacion) => {
-    const sql = 'INSERT INTO public.postulaciones (id_usuario,id_reto, descripcion, titulo,estado) VALUES($1, $2, $3, $4,$5);'
-    const datos = [postulacion.id_usuario,postulacion.id_reto, postulacion.descripcion,postulacion.titulo,postulacion.estado]
+    const sql = 'INSERT INTO public.postulaciones (id,id_usuario,id_reto, descripcion, titulo,estado) VALUES($1, $2, $3, $4,$5,$6);'
+    const datos = [postulacion.id,postulacion.id_usuario,postulacion.id_reto, postulacion.descripcion,postulacion.titulo,postulacion.estado]
     return await _pg.ejecutarQuery(sql, datos)
 }
 
@@ -18,9 +18,9 @@ const consultarPostulaciones = async (id) => {
     }
 }
 
-const eliminarPostulacion = async (id) => {
+const eliminarPostulacion = async (propuesta) => {
     const sql = 'DELETE FROM public.postulaciones WHERE id=$1';
-    const datos = [id]
+    const datos = [propuesta.id]
     return await _pg.ejecutarQuery(sql, datos)
 }
 

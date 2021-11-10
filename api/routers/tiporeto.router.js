@@ -8,7 +8,7 @@ router.post('/tiporeto', async (req, res) => {
     try {
         let respuesta_db = await controller.crearTipoReto(tiporeto)
         let info = respuesta_db.rowCount == 1 ? `Tipo_reto creado: ${tiporeto.id}` : ''
-        let message = respuesta_db.rowCount == 1 ? 'Tipo_reto creado correctamente' : 'No se creo el usuario.'
+        let message = respuesta_db.rowCount == 1 ? 'Tipo_reto creado correctamente' : 'No se creo el Tipo de reto.'
         return res.send({ ok: respuesta_db.rowCount == 1, message, info })
     } catch (error) {
         let codigo_pg = error.code
@@ -34,11 +34,11 @@ router.put('/tiporeto', async (req, res) => {
     }
 })
 
-router.delete('/tiporeto/:id', async (req, res) => {
+router.delete('/tiporeto', async (req, res) => {
     try {
-        let id = req.params.id
-        let respuesta_db = await controller.eliminarTipoReto(id)
-        let info = respuesta_db.rowCount == 1 ? `Tipo reto eliminado: ${id}` : ''
+        let tiporeto = req.body
+        let respuesta_db = await controller.eliminarTipoReto(tiporeto)
+        let info = respuesta_db.rowCount == 1 ? `Tipo reto eliminado: ${tiporeto.id}` : ''
         let message = respuesta_db.rowCount == 1 ? 'Tipo reto eliminado correctamente' : 'No se eliminado el tipo reto.'
         return res.send({ ok: respuesta_db.rowCount == 1, message, info })
     } catch (error) {

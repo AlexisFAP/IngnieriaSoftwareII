@@ -34,11 +34,11 @@ router.put('/avances', async (req, res) => {
     }
 })
 
-router.delete('/avances/:id', async (req, res) => {
+router.delete('/avances', async (req, res) => {
     try {
-        let id = req.params.id
-        let respuesta_db = await controller.eliminarAvance(id)
-        let info = respuesta_db.rowCount == 1 ? `Avance eliminado: ${id}` : ''
+        let avance = req.body
+        let respuesta_db = await controller.eliminarAvance(avance)
+        let info = respuesta_db.rowCount == 1 ? `Avance eliminado: ${avance.id}` : ''
         let message = respuesta_db.rowCount == 1 ? 'Avance eliminado correctamente' : 'No se eliminado el avance.'
         return res.send({ ok: respuesta_db.rowCount == 1, message, info })
     } catch (error) {
@@ -59,5 +59,14 @@ router.get('/avances/:id?', (req, res) => {
 
 })
 
+router.get('/avancesid', (req, res) => {
+    controller.ultimoId().then(respuesta_db => {
+        let info = respuesta_db.rows
+        return res.send({ ok: true, message: 'Id consultado', info })
+    }).catch(error => {
+        console.log(error);
+        return res.status(500).send({ ok: false, message: 'Ha ocurrido un error no controlado', info: null })
+    })
+})
 
 module.exports = router

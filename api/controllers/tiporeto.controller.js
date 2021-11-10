@@ -2,8 +2,8 @@ const PostgresService = require('../services/postgres.service');
 const _pg = new PostgresService()
 
 const crearTipoReto= async (tipo_reto) => {
-    const sql = 'INSERT INTO public.tipo_reto (id, nombre, descripcion) VALUES($1, $2, $3);'
-    const datos = [tipo_reto.id, tipo_reto.nombre, tipo_reto.descripcion]
+    const sql = 'INSERT INTO public.tipo_reto (nombre, descripcion) VALUES($1, $2);'
+    const datos = [ tipo_reto.nombre, tipo_reto.descripcion]
     return await _pg.ejecutarQuery(sql, datos)
 }
 
@@ -18,9 +18,9 @@ const consultarTipoRetos = async (id) => {
     }
 }
 
-const eliminarTipoReto = async (id) => {
+const eliminarTipoReto = async (tiporeto) => {
     const sql = 'DELETE FROM public.tipo_reto WHERE id=$1';
-    const datos = [id]
+    const datos = [tiporeto.id]
     return await _pg.ejecutarQuery(sql, datos)
 }
 
