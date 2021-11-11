@@ -5,15 +5,36 @@
               <v-card-title class="title" primary-title> Mis Propuestas </v-card-title>
             </v-form>
             <v-row justify="space-around">
-            <template v-for="(item) in propuestas">
-              <v-card id="container" width="250" 
+            <template v-for="(item) in prop_avan">
+              <v-card id="container" width="420" 
               :key="item.id">
-                <v-card-title  primary-title> {{item.titulo}}</v-card-title>
+                <v-card-title  primary-title> {{item[0].titulo}}</v-card-title>
                 <v-card-text>
-                  <b>Descripción: </b> {{item.descripcion}}
+                  <b>Descripción: </b> {{item[0].descripcion}}
                 </v-card-text>
-                <v-btn @click="eliminarPropuesta(item.id)">Eliminar Propuesta</v-btn>
-                <v-btn @click="editarPropuesta(item.id)">Editar Propuesta</v-btn>
+                <v-card-subtitle>Avance 1 - <b>Título: </b> {{item[1].titulo}}</v-card-subtitle>
+                <v-card-text>
+                  <b>Descripción: </b> {{item[1].descripcion}}
+                </v-card-text>
+                <v-card-text>
+                  <b>Fecha: </b> {{item[1].fecha}}
+                </v-card-text>
+                <v-card-subtitle>Avance 2 - <b>Título: </b> {{item[2].descripcion}}</v-card-subtitle>
+                <v-card-text>
+                  <b>Descripción: </b> {{item[2].descripcion}}
+                </v-card-text>
+                <v-card-text>
+                  <b>Fecha: </b> {{item[2].fecha}}
+                </v-card-text>
+                <v-card-subtitle>Avance 3 - <b>Título: </b> {{item[3].descripcion}}</v-card-subtitle>
+                <v-card-text>
+                  <b>Descripción: </b> {{item[3].descripcion}}
+                </v-card-text>
+                <v-card-text>
+                  <b>Fecha: </b> {{item[3].fecha}}
+                </v-card-text>
+                <v-btn @click="eliminarPropuesta(item[0].id)">Eliminar Propuesta</v-btn>
+                <v-btn @click="editarPropuesta(item[0].id)">Editar Propuesta</v-btn>
               </v-card>
             </template>
             </v-row>
@@ -80,8 +101,6 @@ export default {
         for(let i=0;i<data2.info.length;i++){
             this.avances.push(data2.info[i]);
         }
-        //console.log('da2');
-        //console.log(this.avances);
         for(let i=0;i<data.info.length;i++){
             if(data.info[i].id_usuario ==localStorage.getItem("id")){
                 this.propuestas.push(data.info[i]);
@@ -89,19 +108,17 @@ export default {
         }
         for(let i=0;i<this.propuestas.length;i++){
             let a = []
+            let b  = {}
+            a.push(this.propuestas[i])
+            b.propuesta = this.propuestas[i];
             for(let j=0;j<this.avances.length;j++){
                 if(this.propuestas[i].id == this.avances[j].id_postulacion){
                     a.push(this.avances[j])
+                    b.avance = this.avances[j]
                 } 
             }
-            if(a.length > 0){
-                
-            }
+            this.prop_avan.push(a)
         }
-        console.log('da');
-        console.log(this.propuestas);
-        console.log('da3');
-        console.log(this.prop_avan);
       },
     },
   }
@@ -110,7 +127,7 @@ export default {
 <style scoped>
 #container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   margin-bottom: 10px;
   background: rgb(43, 67, 148);
 }
